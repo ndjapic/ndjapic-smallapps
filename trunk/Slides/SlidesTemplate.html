@@ -5,25 +5,31 @@
 <title>Slajdovi</title>
 <style type="text/css">
  h1 {background-color: silver;}
- div.slide {display: none;}
- div.show {display: block;}
- div.body {text-shadow: red 1ex 1ex 3px;}
+ #status {position: absolute; top:5; right: 5; background-color: lightgreen;}
+ .slide {display: none;}
+ .show {display: block;}
+ div.body {background-color: aqua;}
+ svg {position: absolute; bottom:5; right: 5; fill-opacity: 30%; stroke-opacity: 70%;}
 </style>
-<script type="text/javascript" >
+<script type="text/javascript">
  var elm
- function keypress(e) {
+ function show(id) {
   if(elm) elm.className = 'slide'
-  elm = document.getElementById(
-   String.fromCharCode(e.which || e.keyCode)
-  )
+  elm = document.getElementById(status).firstChild.text = "#"+id
+  elm = document.getElementById(id)
   if(elm) elm.className = 'show'
+ } 
+ function keypress(e) {
+  show( String.fromCharCode(e.which || e.keyCode) )
  } 
 </script>
 </head>
 <body onkeypress = "keypress(event)">
 
+<span id="status">Press slide id to choose a slide.</span>
+
 <div class="slide" id="1">
- <h1>Слајд 1</h1>
+ <h1>Наслов слајда 1</h1>
  <p>Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. </p>
  <p>Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. </p>
  <p>Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. </p>
@@ -31,9 +37,8 @@
 </div>
 
 <div class="slide" id="2">
- <h1>Слајд 2</h1>
- <svg width="320" height="240"
-  style="position: absolute; top:5; right: 5; fill-opacity: 30%; stroke-opacity: 30%;">
+ <h1>Наслов слајда 2</h1>
+ <svg width="320" height="240">
   <rect x="5" y="5" width="160" height="120" stroke="green" fill="lightblue" />
   <rect x="155" y="115" width="160" height="120" stroke="blue" fill="lightgreen" />
   <circle cx="160" cy="120" r="60" stroke="maroon" fill="gold" />
