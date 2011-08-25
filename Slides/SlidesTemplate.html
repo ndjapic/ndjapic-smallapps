@@ -5,17 +5,17 @@
 <title>Slajdovi</title>
 <style type="text/css">
  h1 {background-color: silver;}
- #status {position: absolute; top:5; right: 5; background-color: lightgreen;}
+ span {position: absolute; right: 5; background-color: lightgreen;}
  .slide {display: none;}
  .show {display: block;}
  div.body {background-color: aqua;}
- svg {position: absolute; bottom:5; right: 5; fill-opacity: 30%; stroke-opacity: 70%;}
+ svg {position: absolute; right: 5; fill-opacity: 30%; stroke-opacity: 70%;}
 </style>
 <script type="text/javascript">
  var elm
  function show(id) {
   if(elm) elm.className = 'slide'
-  elm = document.getElementById(status).firstChild.text = "#"+id
+  document.getElementById(status).firstChild.text = "#"+id
   elm = document.getElementById(id)
   if(elm) elm.className = 'show'
  } 
@@ -33,7 +33,8 @@
  <p>Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. </p>
  <p>Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. </p>
  <p>Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. </p>
- <p>Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. Текст на слајду 1. </p>
+ <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
 </div>
 
 <div class="slide" id="2">
