@@ -5,23 +5,27 @@
 <title>Slajdovi</title>
 <style type="text/css">
  h1 {background-color: silver;}
- span {position: absolute; right: 5; background-color: lightgreen;}
+ span {background-color: lightgreen;}
  .slide {display: none;}
  .show {display: block;}
  div.body {background-color: aqua;}
- svg {position: absolute; right: 5; fill-opacity: 30%; stroke-opacity: 70%;}
+ span, svg {position: absolute; right: 5px;}
 </style>
 <script type="text/javascript">
+
  var elm
+
  function show(id) {
   if(elm) elm.className = 'slide'
-  document.getElementById(status).firstChild.text = "#"+id
+  document.getElementById('status').firstChild.text = "#"+id
   elm = document.getElementById(id)
   if(elm) elm.className = 'show'
- } 
+ }
+
  function keypress(e) {
   show( String.fromCharCode(e.which || e.keyCode) )
  } 
+
 </script>
 </head>
 <body onkeypress = "keypress(event)">
@@ -39,7 +43,9 @@
 
 <div class="slide" id="2">
  <h1>Наслов слајда 2</h1>
- <svg width="320" height="240">
+ <svg width="320" height="240"
+   onmouseover="this.style.opacity=1;this.filters.alpha.opacity=100"
+   onmouseout="this.style.opacity=0.4;this.filters.alpha.opacity=40">
   <rect x="5" y="5" width="160" height="120" stroke="green" fill="lightblue" />
   <rect x="155" y="115" width="160" height="120" stroke="blue" fill="lightgreen" />
   <circle cx="160" cy="120" r="60" stroke="maroon" fill="gold" />
