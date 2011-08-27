@@ -1,0 +1,90 @@
+<html>
+<head>
+ <title>Definite integral calculator</title>
+ <style type="text/css">
+  canvas { border: 1px solid black; }
+ </style>
+</head>
+<body>
+
+ <form name="main" onsubmit="return update(this)">
+  Definite integral for monotonically increasing function
+  <input name="fun" value="sin(x)" /> on interval
+  <input name="interval" value="0, Math.PI/2" /> with an accuracy of at least
+  <input name="precision" value="0.05" /> is
+  <output name="integral"></output>.
+  <input type="submit" />
+  <input type="reset" />
+ </form>
+
+ <canvas id="tutorial"></canvas>
+
+ <script>
+
+  // Constructor of a monotonically increasing function
+  function IncFun(f){
+ 
+   function point(x0) {
+    return {x:x0, y:f(x0)}
+   }
+
+   // Method for Definite Integral of the function
+   this.defInt = function(interval,eps) {
+
+    // Area of curved trapezoid
+    function area(A,B,h,eps) {
+ 
+     h /= 2
+     eps /= 2
+     
+     var C = point(A.x + h)
+ 
+     if (canvas.getContext){
+      ctx.strokeStyle = "green";
+      ctx.strokeRect(C.x, A.y, h, C.y-A.y);
+      ctx.strokeStyle = "red";
+      ctx.strokeRect(A.x, C.y, h, B.y-C.y);
+     }
+ 
+     return B.y-A.y < eps/h ?
+      (A.y+4*C.y+B.y)*h/3 :
+      area(A,C,h,eps) + area(C,B,h,eps)
+    }
+
+    interval = interval.map(point)
+    var A = interval.shift()
+    var B = interval.shift()
+    var n = (B.x-A.x)*(B.y-A.y)/eps
+    var zoom = 70*Math.log(n)
+
+    var canvas = document.getElementById('tutorial');
+    canvas.width = (B.x-A.x)*zoom
+    canvas.height = (B.y-A.y)*zoom
+    if (canvas.getContext){
+     var ctx = canvas.getContext('2d');
+     ctx.translate(0,canvas.height)
+     ctx.scale(zoom,-zoom) // repairs wrong orientation of y axis
+     ctx.translate(-A.x,-A.y) // put origin at A
+     ctx.lineWidth = 1/zoom
+    }
+  
+    return area(A,B, B.x-A.x, eps)
+   }
+
+  }
+
+  function update(q) {
+   q.integral.value = new IncFun(
+    new Function("x", "with(Math){return "+q.fun.value+"}")
+   ).defInt(
+    q.interval.value.split(",").map(eval),
+    Number(q.precision.value)
+   )
+   return false
+  }
+
+ </script>
+
+</body>
+</html>
+
