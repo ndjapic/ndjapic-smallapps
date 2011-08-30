@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>HTML Slide Show Template</title>
+<style type="text/css">
+ .slide {display: none;}
+</style>
+<script type="text/javascript">
+
+ var i = 0
+ var len
+ var slides = new Array()
+
+ function init() {
+  var list = document.getElementsByClassName('slide')
+  len = list.length
+  for (var i=0; i<len; i++) {slides.push(list.item(i))}
+  slides[0].className = ''
+  document.onkeypress = keypress
+ }
+
+ function keypress(evt) {
+  slides[i].className = 'slide'
+  evt = evt || window.event
+  if( String.fromCharCode(evt.which || evt.keyCode) == 'b' ) {
+   if(i>0) {i--}
+  } else {
+   if(i<len-1) {i++}
+  }
+  slides[i].className = ''
+ }
+
+</script>
+</head>
+<body onload="init()">
+
+<div class="slide">
+ <h1>First slide</h1>
+ <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
+</div>
+
+<div class="slide">
+ <h1>Second slide</h1>
+ <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
+ <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
+</div>
+
+<div class="slide">
+ <h1>Third slide</h1>
+ <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
+ <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
+ <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
+</div>
+
+</body>
+</html>
+
