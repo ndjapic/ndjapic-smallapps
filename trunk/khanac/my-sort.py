@@ -18,7 +18,7 @@ def my-sort(a):
       a[i++] = t[HEAD]
       read-tree(t[RIGHT])
   
-  tree = newnode()
+  tree = new-node()
   for(v in a): put-value-to-tree(v,tree)  
   i = 0
   read-tree(tree)
