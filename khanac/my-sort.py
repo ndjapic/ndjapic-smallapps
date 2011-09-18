@@ -2,7 +2,7 @@ def my-sort(a):
   LEFT = 0; HEAD = 1; RIGHT = 2
 
   def new-tree(): return []
-  def is-empty(t): return t.length < 3 # or < 1, whatever
+  def is-empty(t): return len(t) < 3 # or < 1, whatever
 
   def put-value-to-tree(v,t):
     if(is-empty(t)):
