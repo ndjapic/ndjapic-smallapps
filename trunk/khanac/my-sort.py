@@ -1,23 +1,19 @@
 def my_sort(a):
-  LEFT = 0; HEAD = 1; RIGHT = 2; i = 0
+  LEFT, HEAD, RIGHT, i = 0, 1, 2, 0
 
-  def new_tree(): return []
-  def is_empty(t): return len(t) < 1
-
-  def put_value_to_tree(v,t):
-    if is_empty(t):   t += [new_tree(), v, new_tree()]
-    elif v < t[HEAD]: put_value_to_tree(v,t[LEFT])
-    else:             put_value_to_tree(v,t[RIGHT])
+  def put_value_to_tree(v, t):
+    if len(t) < 1:   t.extend([[], v, []])
+    elif v < t[HEAD]: put_value_to_tree(v, t[LEFT])
+    else:             put_value_to_tree(v, t[RIGHT])
 
   def read_tree(t):
-    if not is_empty(t):
+    if len(t) > 0:
       read_tree(t[LEFT])
-      a[i] = t[HEAD] # it says here that local var i is used before inited
-      i += 1
+      a[i], i = t[HEAD], i+1 # it says here that local var i is used before inited
       read_tree(t[RIGHT])
 
-  tree = new_tree()
-  for v in a: put_value_to_tree(v,tree)  
+  tree = []
+  for v in a: put_value_to_tree(v, tree)
   read_tree(tree)
 
 my_sort([3,5,2,7,8,1,6,5,3])
