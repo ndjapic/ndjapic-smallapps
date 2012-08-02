@@ -1,0 +1,27 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Tablica množenja</title>
+</head><body>
+
+<h1>Tablica množenja</h1>
+
+<p>Momenat...</p>
+<table>
+<script type="text/javascript">
+ m=prompt('Unesite visinu tabele','')
+ n=prompt('Unesite širinu tabele','')
+ for(i=1;i<=m;i++){
+  document.write('<tr align="right">')
+  for(j=1;j<=n;j++){
+   document.write('<td>')
+   if(i*j<m*n/4){document.write('<strong>')}
+   document.write(i*j)
+   if(i*j<m*n/4){document.write('</strong>')}
+   document.write('</td>')
+  }
+  document.writeln('</tr>')
+ }
+</script>
+</table>
+<p>To je sve.</p>
+</body></html>
