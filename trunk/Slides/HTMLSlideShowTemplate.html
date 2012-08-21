@@ -3,34 +3,50 @@
 <head>
 <meta charset="utf-8" />
 <title>HTML Slide Show Template</title>
+
 <style type="text/css">
- .slide {display: none;}
+ div.slide {display: none;}
+ div {min-height: 100%; background: lightgreen;}
+ body {height: 100%; margin: 1%; background: lightyellow;}
+ h1, h2, h3 {color: fuchsia; background: lime;}
+ h1, h2, h3, div {padding: 1%; border-radius: 5px; }
+ footer {display: float; bottom: 3; text-align: center;}
+ p {opacity: 0.8;}
+ p:hover {opacity: 1.0; text-align: justify;}
 </style>
+
 <script type="text/javascript">
 
-// using html5 methods querySelectorAll and .classList.toggle
-
- var i = 0
- var len
- var slides = new Array()
-
  function init() {
-  var list = document.querySelectorAll('div.slide')
-  len = list.length
-  for (var i=0; i<len; i++) {slides.push(list.item(i))}
-  slides[0].classList.remove('slide')
-  document.onkeypress = keypress
- }
 
- function keypress(evt) {
-  slides[i].classList.add('slide')
-  evt = evt || window.event
-  if( String.fromCharCode(evt.which || evt.keyCode) == 'b' ) {
-   if(i>0) {i--}
-  } else {
-   if(i<len-1) {i++}
+  colors = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'grey', 'green', 'lime',
+   'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow']
+  kb = {left: 37, up: 38, right: 39, down: 40}
+
+  var i = 0 // move to first slide
+  var slides = document.querySelectorAll('div.slide')
+  var m = document.querySelector('meter')
+
+  function slide(i) {
+   slides.item(i).classList.remove('slide') // show current slide
+   m.firstChild.nodeValue = [i, '/', slides.length-1, Math.round(100 * i / (slides.length-1)) + '%'].join(' ')
   }
-  slides[i].classList.remove('slide')
+  slide(0)
+
+  document.onkeydown = function (evt) {
+   slides.item(i).classList.add('slide') // hide current slide
+   evt = evt || window.event
+   var code = evt.keyCode
+   if( code === kb.left || code === kb.up ) {
+    //evt.preventDefault()
+    if(i > 0) {i -= 1} // move to previous slide
+   } else if( code === kb.right || code === kb.down ) {
+    //evt.preventDefault()
+    if(i < slides.length - 1) {i += 1} // move to next slide
+   }
+   slide(i)
+  }
+
  }
 
 </script>
@@ -56,10 +72,14 @@
  <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
  lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
  <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
- lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
- <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
+ lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.
+ The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
  lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
 </div>
+
+<footer>
+ <meter max="100" low="30" high="70" optimum="80" value="25">A+</meter>
+</footer>
 
 </body>
 </html>
