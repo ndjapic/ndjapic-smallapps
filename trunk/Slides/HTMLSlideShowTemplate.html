@@ -16,19 +16,19 @@
   var list = document.getElementsByClassName('slide')
   len = list.length
   for (var i=0; i<len; i++) {slides.push(list.item(i))}
-  slides[0].className = ''
+  slides[0].classList.toggle('slide')
   document.onkeypress = keypress
  }
 
  function keypress(evt) {
-  slides[i].className = 'slide'
+  slides[i].classList.toggle('slide')
   evt = evt || window.event
   if( String.fromCharCode(evt.which || evt.keyCode) == 'b' ) {
    if(i>0) {i--}
   } else {
    if(i<len-1) {i++}
   }
-  slides[i].className = ''
+  slides[i].classList.toggle('slide')
  }
 
 </script>
