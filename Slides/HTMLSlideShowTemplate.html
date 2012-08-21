@@ -8,27 +8,29 @@
 </style>
 <script type="text/javascript">
 
+// using html5 methods querySelectorAll and .classList.toggle
+
  var i = 0
  var len
  var slides = new Array()
 
  function init() {
-  var list = document.getElementsByClassName('slide')
+  var list = document.querySelectorAll('div.slide')
   len = list.length
   for (var i=0; i<len; i++) {slides.push(list.item(i))}
-  slides[0].classList.toggle('slide')
+  slides[0].classList.remove('slide')
   document.onkeypress = keypress
  }
 
  function keypress(evt) {
-  slides[i].classList.toggle('slide')
+  slides[i].classList.add('slide')
   evt = evt || window.event
   if( String.fromCharCode(evt.which || evt.keyCode) == 'b' ) {
    if(i>0) {i--}
   } else {
    if(i<len-1) {i++}
   }
-  slides[i].classList.toggle('slide')
+  slides[i].classList.remove('slide')
  }
 
 </script>
@@ -61,4 +63,3 @@
 
 </body>
 </html>
-
