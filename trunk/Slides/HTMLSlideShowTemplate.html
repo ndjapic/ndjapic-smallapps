@@ -5,7 +5,8 @@
 <title>HTML Slide Show Template</title>
 
 <style type="text/css">
- div.slide {display: none;}
+ body > div {display: none;}
+ div.show {display: block;}
  div {min-height: 100%; background: lightgreen;}
  body {height: 100%; margin: 1%; background: lightyellow;}
  h1, h2, h3 {color: fuchsia; background: lime;}
@@ -17,24 +18,24 @@
 
 <script type="text/javascript">
 
- function init() {
+ window.onload = function () {
 
   colors = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'grey', 'green', 'lime',
    'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow']
   kb = {left: 37, up: 38, right: 39, down: 40}
 
   var i = 0 // move to first slide
-  var slides = document.querySelectorAll('div.slide')
+  var slides = document.querySelectorAll('body > div')
   var m = document.querySelector('meter')
 
-  function slide(i) {
-   slides.item(i).classList.remove('slide') // show current slide
+  function showSlide(i) {
+   slides.item(i).classList.add('show') // show current slide
    m.firstChild.nodeValue = [i, '/', slides.length-1, Math.round(100 * i / (slides.length-1)) + '%'].join(' ')
   }
-  slide(0)
+  showSlide(0)
 
   document.onkeydown = function (evt) {
-   slides.item(i).classList.add('slide') // hide current slide
+   slides.item(i).classList.remove('show') // hide current slide
    evt = evt || window.event
    var code = evt.keyCode
    if( code === kb.left || code === kb.up ) {
@@ -44,22 +45,22 @@
     //evt.preventDefault()
     if(i < slides.length - 1) {i += 1} // move to next slide
    }
-   slide(i)
+   showSlide(i)
   }
 
  }
 
 </script>
 </head>
-<body onload="init()">
+<body>
 
-<div class="slide">
+<div>
  <h1>First slide</h1>
  <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
  lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
 </div>
 
-<div class="slide">
+<div>
  <h1>Second slide</h1>
  <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
  lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
@@ -67,7 +68,7 @@
  lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
 </div>
 
-<div class="slide">
+<div>
  <h1>Third slide</h1>
  <p>The 17 standard colors are: aqua, black, blue, fuchsia, gray, grey, green,
  lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.</p>
