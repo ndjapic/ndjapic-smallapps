@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<!--
+  Created using jsbin.com
+  Source can be edited via http://jsbin.com/owinel/1/edit
+-->
+<head>
+<meta charset=utf-8 />
+<title>Годишњи тест VII</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+ src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured">
+</script>
+
+<style id="jsbin-css">
+ body {color: white; background: green;}
+ label {background: chocolate; border: chocolate outset; padding: 1ex;}
+ li {margin: 3ex;}
+</style>
+</head>
+<body onLoad="init();">
+
+  <h1>VII разред</h1>
+  <p>Задаци из збирке, са страница број 17, 36, 66, 67, 91, 114, 140, 155.</p>
+
+  <form onSubmit="return toSubmit(this);">
+    <input type="reset" />
+    <input type="text" name="ucenik" disabled="disabled" />
+  <ol>
+    <li>
+      <ul>
+        <li> <input type="radio" /> <label> </label> </li>
+      </ul>
+    </li>
+  </ol>
+    <input type="submit" />
+  </form>
+
+<script type="text/javascript" src="http://ubuntuone.com/0GEC6hxXy0Nw9iaWg1WGCc">
+</script>
+<script>
+
+ function randlt(n){
+  return Math.floor((Math.random()*n));
+ }
+
+ function randElm(arr){
+  return arr[randlt(arr.length)];
+ }
+
+/**
+ * Randomize array element order in-place.
+ * Using Fisher-Yates shuffle algorithm.
+ */
+function shuffle(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+ function makeClones(li, array, callback){
+  array = shuffle(array);
+  for(var i in array){
+   callback(
+    li.parentNode.appendChild(li.cloneNode(true)),
+    array[i]
+   );
+  }
+  li.parentNode.removeChild(li);
+ }
+
+ function init(){
+  var ibz = 0; // identifikacioni broj zadatka
+  document.forms[0].ucenik.value = prompt('Унесите име и презиме', '');
+  makeClones(document.getElementsByTagName('li')[0], zadaci,
+   function(li, oblast){
+    var zad = randElm(oblast);
+    li.innerHTML = zad[0] + li.innerHTML;
+    li.getElementsByTagName('input')[0].setAttribute('name','z'+(ibz++));
+    var correct = zad[1][0];
+    var ibr = 0; // identifikacioni broj resenja
+    makeClones(li.getElementsByTagName('li')[0], zad[1],
+     function(li, odg){
+      li.getElementsByTagName('input')[0].setAttribute('value', odg == correct ? 4 : -1);
+      li.getElementsByTagName('input')[0].setAttribute('id','r'+ibz+ibr);
+      li.getElementsByTagName('label')[0].setAttribute('for','r'+ibz+(ibr++));
+      li.getElementsByTagName('label')[0].innerHTML = odg;
+     }
+    );
+   }
+  );
+  MathJax.Hub.Configured();
+ }
+
+ function toSubmit(f){
+  var sum = 0;
+  for(var ibz in zadaci){
+   var radios = f['z'+ibz];
+   for(var ibr in radios){
+    var sol = radios[ibr];
+    if(sol.checked){ sum += Number(sol.value); }
+   }
+  }
+  sum = Math.max(sum, 0);
+  alert( Math.round( 100 * sum / zadaci.length / 4 ) + '%' );
+  location.reload();
+  return false;
+ }
+
+</script>
+</body>
+</html>
+
