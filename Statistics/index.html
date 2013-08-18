@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="sr">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Статистичка обрада података</title>
+  <link rel="stylesheet" href="stil.css" type="text/css" />
+  <script src="koren.js" />
+  <script src="integracija.js" />
+  <script src="beta.js" />
+  <script src="gama.js" />
+  <script src="funkcije.js" />
+</head>
+<body>
+
+<h1>Статистичка обрада података</h1>
+
+<h3>Исходи</h3>
+
+<p>По успешном окончању курса,
+очекује се да студенти буду оспособљени да успешно испитују случајне и
+масовне појаве у природи и друштву.</p>
+
+<h3>Садржај</h3>
+
+<ol>
+  <li>случајне променљиве;</li>
+  <li>расподела, дисперзија, одступање;</li>
+  <li>груписање и сређивање података;</li>
+  <li>мере центрираности и растурање;</li>
+  <li>корелација и регресија;</li>
+  <li>тестирање хипотеза;</li>
+  <li>chi<sup>2</sup> тест независности;</li>
+  <li>факторска анализа;</li>
+  <li>примена рачунара у статистици.</li>
+</ol>
+
+<h2>Случајне променљиве</h2>
+
+<h3>Неке комбинаторне функције</h3>
+
+<h4>Факторијел</h4>
+<p>Број низова од n елемената
+неког скупа, који има n елемената, зове се факторијел броја n, означава
+се са n! и рачуна се
+по формули n! = n*(n-1)! = n(n-1)(n-2)...*3*2*1. По договору је 0!=1.
+</p>
+<form>
+ <input name="n" value="4" size="3" />!
+ <input value="=" name="o" onclick="obradiFaktorijel(this.form)" type="button" />
+ <input name="p" readonly="readonly" />
+ <input type="reset" />
+</form>
+<p>Специјална Gama функција омогућава да се рачунају факторијели
+од бројева који нису природни, па чак и од комплексних бројева.
+Недавно је разрешен статус хипотезе о тзв. левом факторијелу,
+коју је поставио математичар Ђуро Курепа.
+</p>
+<form>
+ Gama(
+  <input name="lambda" value="5" size="3" />
+ ) <input value="=" name="o" onclick="obradiGama(this.form)" type="button" />
+ <input name="gama" readonly="readonly" />
+<br>
+ GamaNekompletna(lambda,
+  <input name="x" value="9" size="3" />
+ ) =
+ <input name="gamaNekompletna" readonly="readonly" />
+<br>
+ GamaRegularizovana(lambda,x) =
+ <input name="gamaRegularizovana" readonly="readonly" />
+<br>
+ <input type="reset" />
+</form>
+
+<h4>Биномни коефицијент</h4>
+<p>Број подскупова са k елемената
+неког скупа, који има n елемената, зове се биномни коефицијент n над k.
+Биномни коефицијент n над k означаваћемо са binKoef(n,k);
+рачуна се по формули binKoef(n,k) = (n/k)*binKoef(n-1,k-1) = n!/(k!*(n-k)!).
+По договору је binKoef(n,0) = 1 и binKoef(n,k) = 0 ако је k&lt;0.
+Једнакост binKoef(n,k) = 0 је тачна и у случају када је k&gt;n.
+</p>
+<form>
+ binKoef(
+  <input name="n" value="6" size="3" />,
+  <input name="k" value="4" size="3" />
+ )
+ <input value="=" name="o" onclick="obradiBinKoef(this.form)" type="button" />
+ <input name="p" readonly="readonly" />
+ <input type="reset" />
+</form>
+<p>Обичај је да се биномни коефицијенти представљају у облику таблице
+која се зове
+<button onclick="prikaziPaskalovTrougao(25)">Паскалов троугао</button>.
+Биномни коефицијенти су коефицијенти монома у развоју степена бинома у полином.
+На пример,
+(p+q)<sup>4</sup> =
+1p<sup>4</sup>q<sup>0</sup> +
+4p<sup>3</sup>q<sup>1</sup> +
+6p<sup>2</sup>q<sup>2</sup> +
+4p<sup>1</sup>q<sup>3</sup> +
+1p<sup>0</sup>q<sup>4</sup>.
+Специјална Beta функција омогућава да се рачунају биномни коефицијенти
+од бројева који нису природни:
+1 / binKoef(n,k) =
+k Beta(n-k+1, k) =
+n Beta(n-k, 1+k).
+</p>
+<form>
+ 1 / Beta(
+  <input name="p" value="3" size="3" />,
+  <input name="q" value="4" size="3" />
+ ) <input value="=" name="o" onclick="obradiBeta(this.form)" type="button" />
+ <input name="beta" readonly="readonly" />
+<br>
+ 1 / BetaNekompletna(p,q,
+  <input name="x" value="0.4" size="3" />
+ ) =
+ <input name="betaNekompletna" readonly="readonly" />
+<br>
+ BetaRegularizovana(p,q,x) =
+ <input name="betaRegularizovana" readonly="readonly" />
+<br>
+ BetaRegularizovanaInverzna(p,q,
+  <input name="y" value="0.7" />
+ ) =
+ <input name="betaRegularizovanaInverzna" readonly="readonly" />
+<br>
+ <input type="reset" />
+</form>
+
+<h3>Дискретне случајне променљиве</h3>
+<p>Дискретнa случајнa променљивa X одређена је
+коначним или пребројиво бесконачним скупом исхода
+R<sub>X</sub> = {
+ x<sub>1</sub>,
+ x<sub>2</sub>, ...
+}
+и скупом вероватноћа
+P{X=x<sub>k</sub>}, k=1,2,...
+којег зовемо расподела вероватноћа за X.
+</p>
+<h4>Биномна расподела</h4>
+<p>Случајна променљива S<sub>n</sub> са биномном расподелом је број реализација
+догађаја A у n поновљених покушаја.
+Са p је означена вероватноћа догађаја A, p=P(A).
+Ако са q=1-p означимо вероватноћу да се догађај A не реализује,
+тада се расподела вероватноћа састоји од монома из развоја полинома
+(p+q)<sup>n</sup>, који је једнак 1. На пример,
+</p>
+<form>
+како је вероватноћа догађаја A који представља појаву шестице у једном бацању коцке
+p = <input name="p" value="0.1667" size="3" />,
+ако се коцка баца
+n = <input name="n" value="5" size="3" /> пута,
+онда је вероватноћа да се шестица појави тачно
+k = <input name="k" value="2" size="3" />
+пута једнака
+P{S<sub>n</sub>=k} =
+ binKoef(n,k)
+ p<sup>k</sup>
+ q<sup>n-k</sup>
+ <input value="=" name="o" onclick="obradiBinomnuRaspodelu(this.form)" type="button" />
+ <input name="verovatnoca" readonly="readonly" />.
+Кумулативна вероватноћа, тј. вероватноћа да се шестица појави највише k пута је
+P{S<sub>n</sub>&lt;=k} =
+ <input name="kumulativno" readonly="readonly" />.
+ <input type="reset" />
+</form>
+
+<h4>Хипергеометријска расподела</h4>
+<p>Популација од c елемената има a неисправних и b исправних елемената (a+b=c).
+На случајан начин се узима без враћања n елемената.
+Случајна променљива S је број нађених неисправних елемената међу n изабраних.
+Кажемо да S има хипергеометријску расподелу.
+</p>
+<form>
+За c = <input name="c" value="100" size="3" />,
+a = <input name="a" value="5" size="3" />,
+n = <input name="n" value="15" size="3" /> и
+k = <input name="k" value="2" size="3" />
+вероватноће су
+P{S=k} =
+ binKoef(a,k)
+ * binKoef(c-a,n-k)
+ / binKoef(c,n)
+ <input value="=" name="o" onclick="obradiHipergeometrijskuRaspodelu(this.form)" type="button" />
+ <input name="verovatnoca" readonly="readonly" /> и
+P{S&lt;=k} =
+ <input name="kumulativno" readonly="readonly" />.
+ <input type="reset" />
+</form>
+
+<h4>Пуасонова расподела</h4>
+<p>Број кварова на машини у току једне године је случајна променљива X
+која има Пуасонову расподелу P(lambda).
+Овде параметар lambda указује на подложност кваровима.
+</p>
+<form>
+За lambda = <input name="lambda" value="8" size="3" /> и
+k = <input name="k" value="5" size="3" />
+вероватноће су
+P{X=k} =
+ e<sup>-lambda</sup>
+ lambda<sup>k</sup>/k!
+ <input value="=" name="o" onclick="obradiPuasonovuRaspodelu(this.form)" type="button" />
+ <input name="verovatnoca" readonly="readonly" /> и
+P{X&lt;=k} =
+ <input name="kumulativno" readonly="readonly" />.
+ <input type="reset" />
+</form>
+
+<h4>Геометријска (или Паскалова) расподела</h4>
+<p>Као и код биномне расподеле понављамо експеримент
+ у којем се догађај A реализује са вероватноћом p.
+ Случајна променљива X је број потребних понављања експеримента
+ да би се догађај A реализовао.
+</p>
+<form>
+За p = <input name="p" value="0.3" size="3" /> и
+k = <input name="k" value="5" size="3" />
+вероватноће су
+P{X=k} =
+ (1-p)<sup>k-1</sup>p
+ <input value="=" name="o" onclick="obradiGeometrijskuRaspodelu(this.form)" type="button" />
+ <input name="verovatnoca" readonly="readonly" /> и
+P{X&lt;=k} =
+ <input name="kumulativno" readonly="readonly" />.
+ <input type="reset" />
+</form>
+
+<h3>Непрекидне случајне променљиве</h3>
+<p>Расподела случајне променљиве X непрекидног типа одређена је
+функцијом густине f(x) (probability density function - PDF) и
+функцијом расподеле F(x) = P{X&lt;x} (cumulative density function - CDF).
+Ове две функције су повезане релацијом F'(x) = f(x),
+па је довољно познавати једну од њих.
+</p>
+
+<h4>Експоненцијална расподела</h4>
+<p>Време рада машине до првог квара је случајна променљива X
+са експоненцијалном расподелом E(alfa).
+</p>
+<form>
+За alfa = <input name="alfa" value="1.5" size="3" /> и
+x = <input name="x" value="0.5" size="3" /> &gt; 0
+вредности функција су
+f(x) =
+ alfa e<sup>-alfa x</sup>
+ <input value="=" name="o" onclick="obradiEksponencijalnuRaspodelu(this.form)" type="button" />
+ <input name="pdf" readonly="readonly" /> и
+F(x) = P{X&lt;x} =
+ 1 - e<sup>-alfa x</sup> =
+ <input name="cdf" readonly="readonly" />.
+ <input type="reset" />
+</form>
+
+<h4>Униформна расподела</h4>
+<p>Случајно изабран реалан број из интервала [a,b] је случајна променљива X
+са униформном расподелом U(a,b).
+</p>
+<form>
+Ако су вредности параметара
+a = <input name="a" value="0" size="3" /> и
+b = <input name="b" value="1" size="3" /> и ако је вредност независно променљиве
+x = <input name="x" value="0.5" size="3" /> &isin; [a,b]
+вредности функција су
+f(x) =
+ 1/(b-a)
+ <input value="=" name="o" onclick="obradiUniformnuRaspodelu(this.form)" type="button" />
+ <input name="pdf" readonly="readonly" /> и
+F(x) = P{X&lt;x} =
+ (x-a)/(b-a) =
+ <input name="cdf" readonly="readonly" />.
+ <input type="reset" />
+</form>
+
+<h4>Нормална (или Гаусова) расподела</h4>
+<p>Најзначајнија расподела у статистици је нормална расподела X : N(m, sigma<sup>2</sup>).
+Расподелу N(0,1) зовемо нормална нормирана расподела.
+</p>
+<form>
+Ако су вредности параметара
+m = <input name="m" value="0" size="3" /> и
+sigma = <input name="sigma" value="1" size="3" /> и ако је вредност независно променљиве
+x = <input name="x" value="0.5" size="3" />, тада је
+вредност функције густине
+f(x) =
+ 1/(sqrt(2pi) sigma) exp(-z<sup>2</sup>/2)
+ <input value="=" name="o" onclick="obradiNormalnuRaspodelu(this.form)" type="button" />
+ <input name="pdf" readonly="readonly" /> при чему је
+z = (x-m)/sigma = <input name="z" readonly="readonly" size="3" />,
+док је вредност функције расподеле
+F(x) = <input name="cdf" readonly="readonly" />
++- <input name="epsilon" value="0.5e-4" size="5" />.
+ <input type="reset" />
+ (Вредности функције расподеле рачунају се преко некомплетне Гама функције.)
+</form>
+
+<h3>Још неке расподеле</h3>
+<p>Наводимо још три расподеле случајних променљивих непрекидног типа
+које су изведене из Гаусове расподеле и имају примену у статистици
+приликом тестирања хипотеза.
+</p>
+
+<h4>chi<sup>2</sup> расподела</h4>
+<form>
+Ако је број степени слободе
+n = <input name="n" value="5" size="3" /> и ако је вредност независно променљиве
+x = <input name="x" value="12.83" size="3" />, тада је
+вредност функције густине
+f(x) =
+ (x/2)<sup>n/2-1</sup> e<sup>-x/2</sup> / 2<sup>n/2</sup> / Gama(n/2)
+ <input value="=" name="o" onclick="obradiChi2Raspodelu(this.form)" type="button" />
+ <input name="pdf" readonly="readonly" />,
+док је вредност функције расподеле
+F(x) = <input name="cdf" readonly="readonly" />
++- <input name="epsilon" value="0.5e-3" size="5" />.
+ <input type="reset" />
+ (Вредности функције расподеле рачунају се преко некомплетне Гама функције.)
+</form>
+
+<h4>Фишерова расподела</h4>
+<form>
+Ако је
+број степени слободе бројиоца k = <input name="k" value="5" size="3" />,
+број степени слободе имениоца m = <input name="m" value="2" size="3" />
+и ако је вредност независно променљиве
+x = <input name="x" value="19.30" size="3" />,
+тада је вредност функције густине
+f(x) =
+ x<sup>k/2-1</sup> (1+x)<sup>-(k+m)/2</sup> / Beta(k/2,m/2)
+ <input value="=" name="o" onclick="obradiFiserovuRaspodelu(this.form)" type="button" />
+ <input name="pdf" readonly="readonly" />,
+док је вредност функције расподеле
+F(x) = <input name="cdf" readonly="readonly" />.
+ <input type="reset" />
+ (Вредности ових функција рачунају се преко Beta функције.)
+</form>
+
+<h4>Студентова t расподела</h4>
+<form>
+Ако је
+број степени слободе m = <input name="m" value="6" size="3" />
+и ако је вредност независно променљиве
+x = <input name="x" value="2.4469" size="3" />,
+тада је вредност функције густине
+f(x) =
+ (1+x<sup>2</sup>/m)<sup>-(m+1)/2</sup> / sqrt(m) / Beta(1/2,m/2)
+ <input value="=" name="o" onclick="obradiStudentovuRaspodelu(this.form)" type="button" />
+ <input name="pdf" readonly="readonly" />,
+док је вредност функције расподеле
+F(x) = <input name="cdf" readonly="readonly" />.
+ <input type="reset" />
+ (Вредности ових функција рачунају се преко Beta функције.)
+</form>
+
+</body>
+</html>
