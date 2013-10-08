@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Распоред</title>
+</head>
+<body>
+  <p>Требало би из php-а извући податке у јаваскрипт.</p>
+<pre><code>
+var ras = {
+  pon: [],
+  uto: [],
+  sre: [],
+  cet: [],
+  pet: []};
+function dodajCasNastavnika(predmet, odeljenje, dan, cas){
+  ras[dan][cas] = odeljenje;
+}
+function dodajCasOdeljenja(predmet, dan, cas){
+  ras[dan][cas] = predmet;
+}
+function napraviRaspored(){
+  return document.createElement('table')
+    .appendChild(document.createElement('tr'))
+    .appendChild(document.createElement('td'))
+    .appendChild(document.createTextNode(ras.pon[1]));
+}
+document.body.appendChild(napraviRaspored());
+</code></pre>
+  </body>
+</html>
