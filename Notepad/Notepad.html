@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Notepad</title>
+</head>
+<body onLoad="
+ notepad.encoding = 'application/x-www-form-urlencoded';
+// notepad.encoding = 'multipart/form-data-encoding';
+ seq = decodeURI(location.href).split('?subject=');
+ notepad.action = seq[0];
+ if(seq.length>1){
+  seq = seq[1].split('+').join(' ').split('&email=');
+  notepad.subject.value = seq[0];
+  if(seq.length>1){
+   seq = seq[1].split('&body=');
+   notepad.email.value = seq[0];
+   if(seq.length>1){
+    notepad.body.value = seq[1];
+   }
+  }
+ }
+">
+<h1>Notepad</h1>
+Ово је текстуални едитор који документе чува у УРЛу.
+УРЛ затим можете снимити у Фејворитс вашег браузера.
+У експерименталној је фази слање документа емаилом
+мапи позивом дефаулт маил апликације система.
+Пробајте разне браузере и мапи апликације.
+<form name="notepad" enctype="multipart/form-data-encoding">
+<hr>
+<input type="reset"  value="New">
+<input type="submit" value="Save">
+Subject: <input type="text" name="subject">
+<input type="button" value="MailTo:" onClick="
+ var act = this.form.action;
+ this.form.action = 'mailto:' + this.form.email.value;
+ this.form.submit();
+ this.form.action = act;
+"><input type="text" name="email">
+<br>
+<textarea name="body" rows=24 cols=72></textarea>
+<hr>
+</form>
+</body>
+</html>
