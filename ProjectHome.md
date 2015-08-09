@@ -1,0 +1,1 @@
+Nenad Đapić's small javascript applications. Client side javascript program inside one small html file manually codded.
