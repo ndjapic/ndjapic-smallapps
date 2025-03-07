@@ -3,5 +3,5 @@ for i in range(int(input())):
     y, m, d = datum.split('-')
     datum = '. '.join([str(int(d)), str(int(m)), y[2:], ''])
     h, m, s = vreme.split(':')
-    vreme = '. '.join([str(int(h) + 2), m])
+    vreme = ':'.join([str(int(h) + 2), m])
     print(datum + vreme)
